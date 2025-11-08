@@ -5,11 +5,11 @@ import math
 pygame.init()
 size = width, height = 800, 600
 screen = pygame.display.set_mode(size)
-
+clock = pygame.time.Clock()
 
 running = True
 
-
+#This is projection mapping
 def project(point,width,height,scale, viewer_distance):
     x, y, z = point
     factor = scale / (z + viewer_distance)
@@ -35,8 +35,12 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+    for point in points:
+        x, y = project(point, width, height, 256, 4)
+        pygame.draw.circle(screen, (255,255,255),(x,y), 3)
 
-
+    pygame.display.flip()
+    clock.tick(60)
 
 
 
